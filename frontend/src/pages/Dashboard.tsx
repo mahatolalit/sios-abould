@@ -23,10 +23,9 @@ export const Dashboard = () => {
   const [selectedTaskId, setSelectedTaskId] = useState<number | null>(null);
   const [showNewTaskModal, setShowNewTaskModal] = useState(false);
 
-  const fetchTasks = useCallback(async (reset = true) => {
+  const fetchTasks = useCallback(async (reset = true, cursor?: number | null) => {
     try {
       if (reset) { setLoading(true); } else { setLoadingMore(true); }
-      const cursor = reset ? undefined : nextCursor;
       const url = cursor ? `/tasks?cursor=${cursor}&limit=20` : '/tasks?limit=20';
       const res = await apiFetch(url);
       if (reset) {
@@ -41,7 +40,6 @@ export const Dashboard = () => {
       setLoading(false);
       setLoadingMore(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => { fetchTasks(); }, [fetchTasks]);
@@ -140,7 +138,7 @@ export const Dashboard = () => {
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
           <button
             className="btn btn-ghost"
-            onClick={() => fetchTasks(false)}
+            onClick={() => fetchTasks(false, nextCursor)}
             disabled={loadingMore}
           >
             {loadingMore ? 'Loading...' : 'Load More'}

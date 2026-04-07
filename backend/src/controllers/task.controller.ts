@@ -26,7 +26,8 @@ export const getTasks = async (req: Request, res: Response, next: NextFunction) 
 
     const tasks = await TaskService.getTasks(userId, role, cursor, limit);
     
-    const nextCursor = tasks.length > 0 ? tasks[tasks.length - 1].id : null;
+    // Only provide a nextCursor if we got a full page — otherwise there are no more items
+    const nextCursor = tasks.length === limit ? tasks[tasks.length - 1].id : null;
 
     res.json({ success: true, data: tasks, nextCursor });
   } catch (error) {
