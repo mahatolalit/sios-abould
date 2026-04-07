@@ -30,13 +30,8 @@ export class TaskService {
     // Data Isolation
     if (role === 'USER') {
       whereClause.assignedTo = userId;
-    } else if (role === 'MANAGER') {
-      whereClause.OR = [
-        { assignedTo: userId },
-        { creatorId: userId }
-      ];
     }
-    // ADMIN sees all tasks where deletedAt is null
+    // ADMIN and MANAGER see all tasks where deletedAt is null
 
     return db.task.findMany({
       take: limit,
