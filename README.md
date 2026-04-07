@@ -1,6 +1,9 @@
 # SmartOps — Smart Internal Operations Management System
 
-> A production-grade internal operations platform built for engineering teams who need structured task tracking, accountable workflows, and automated SOPs — not just a to-do list.
+> An internal operations platform built for engineering teams who need structured task tracking, accountable workflows, and automated SOPs — not just a to-do list.
+
+<img width="1316" height="688" alt="Screenshot from 2026-04-07 23-30-03" src="https://github.com/user-attachments/assets/c7c30051-49fe-4f09-bb94-a1ee0058b0bf" />
+
 
 ---
 
