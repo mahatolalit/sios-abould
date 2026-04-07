@@ -5,6 +5,7 @@ import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Dashboard } from './pages/Dashboard';
 import { Playbooks } from './pages/Playbooks';
+import { Users } from './pages/Users';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Dashboard />} />
             <Route path="playbooks" element={<Playbooks />} />
+            <Route path="users" element={<Users />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>
