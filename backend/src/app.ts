@@ -1,7 +1,10 @@
-import 'dotenv/config';
-import express from 'express';
-import cors from 'cors';
+import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+import express, { Request, Response } from 'express';
+import cors from 'cors';
 import { errorHandler } from './middlewares/errorHandler.middleware';
 
 const app = express();
@@ -22,14 +25,13 @@ app.use('/api/users', userRoutes);
 // Global Error Handler
 app.use(errorHandler);
 
-// Serve frontend static build in production
-if (process.env.NODE_ENV === 'production') {
-  const frontendDist = path.join(__dirname, '../../frontend/dist');
+const frontendDist = path.resolve(__dirname, '../../frontend/dist');
+if (fs.existsSync(frontendDist)) {
   app.use(express.static(frontendDist));
-  // React Router catch-all — must be after all API routes
-  app.get('/{*path}', (_req, res) => {
+  app.get('/{*path}', (_req: Request, res: Response) => {
     res.sendFile(path.join(frontendDist, 'index.html'));
   });
+  console.log(`Serving frontend from ${frontendDist}`);
 }
 
 const PORT = process.env.PORT || 3000;
